@@ -12,7 +12,7 @@ services:
       - ./code/config:/home/coder/.config/code-server
       - ./code/share/user/settings.json:/home/coder/.local/share/code-server/User/settings.json
       - ./code/share/coder.json:/home/coder/.local/share/code-server/coder.json
-      - ./code/workspaces:/home/coder/workspaces
+      - ./preview:/home/coder/workspaces/preview
     networks:
       - traefik
     restart: unless-stopped
