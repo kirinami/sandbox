@@ -1,5 +1,2 @@
-config
-share
-
 workspace/node_modules
 workspace/yarn.lock
