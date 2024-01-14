@@ -11,7 +11,7 @@ RUN bash -c '. /home/coder/.nvm/nvm.sh && nvm install --lts && corepack enable'
 
 WORKDIR /home/coder/workspace
 
-COPY ./workspace .
+COPY --chown=ubuntu:ubuntu ./workspace .
 
 RUN bash -c '. /home/coder/.nvm/nvm.sh && yarn install --no-lockfile'
 
