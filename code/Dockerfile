@@ -13,7 +13,7 @@ WORKDIR /home/coder/workspace
 
 COPY --chown=ubuntu:ubuntu ./workspace .
 
-RUN chown -r ubuntu:ubuntu .
+RUN chown -R ubuntu:ubuntu .
 
 RUN bash -c '. /home/coder/.nvm/nvm.sh && yarn install --no-lockfile'
 
