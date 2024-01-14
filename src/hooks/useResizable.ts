@@ -1,7 +1,26 @@
-import type React from 'react';
-import { useCallback, useMemo, useRef, useState } from 'react';
+import {
+  ComponentPropsWithoutRef,
+  Dispatch,
+  KeyboardEventHandler,
+  MouseEventHandler,
+  PointerEventHandler,
+  RefObject,
+  SetStateAction,
+  useCallback,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 
-export type SeparatorProps = React.ComponentPropsWithoutRef<'hr'>;
+const KEYS_LEFT = ['ArrowLeft', 'Left'];
+const KEYS_RIGHT = ['ArrowRight', 'Right'];
+const KEYS_UP = ['ArrowUp', 'Up'];
+const KEYS_DOWN = ['ArrowDown', 'Down'];
+const KEYS_AXIS_X = [...KEYS_LEFT, ...KEYS_RIGHT];
+const KEYS_AXIS_Y = [...KEYS_UP, ...KEYS_DOWN];
+const KEYS_POSITIVE = [...KEYS_RIGHT, ...KEYS_DOWN];
+
+type SeparatorProps = ComponentPropsWithoutRef<'hr'>;
 
 type Resizable = {
   /**
@@ -23,7 +42,7 @@ type Resizable = {
   /**
    * set border position
    */
-  setPosition: React.Dispatch<React.SetStateAction<number>>;
+  setPosition: Dispatch<SetStateAction<number>>;
 };
 
 type ResizeCallbackArgs = {
@@ -33,14 +52,6 @@ type ResizeCallbackArgs = {
   position: number;
 };
 
-const KEYS_LEFT = ['ArrowLeft', 'Left'];
-const KEYS_RIGHT = ['ArrowRight', 'Right'];
-const KEYS_UP = ['ArrowUp', 'Up'];
-const KEYS_DOWN = ['ArrowDown', 'Down'];
-const KEYS_AXIS_X = [...KEYS_LEFT, ...KEYS_RIGHT];
-const KEYS_AXIS_Y = [...KEYS_UP, ...KEYS_DOWN];
-const KEYS_POSITIVE = [...KEYS_RIGHT, ...KEYS_DOWN];
-
 export type UseResizableProps = {
   /**
    * direction of resizing
@@ -49,7 +60,7 @@ export type UseResizableProps = {
   /**
    * ref of the container element
    */
-  containerRef?: React.RefObject<HTMLElement>;
+  containerRef?: RefObject<HTMLElement>;
   /**
    * if true, cannot resize
    */
@@ -179,7 +190,7 @@ export function useResizable({
     [disabled, handlePointerMove, onResizeEnd],
   );
 
-  const handlePointerDown = useCallback<React.PointerEventHandler>(
+  const handlePointerDown = useCallback<PointerEventHandler>(
     (event) => {
       if (disabled) {
         return;
@@ -202,7 +213,7 @@ export function useResizable({
     [disabled, handlePointerMove, handlePointerUp, onResizeStart],
   );
 
-  const handleKeyDown = useCallback<React.KeyboardEventHandler>(
+  const handleKeyDown = useCallback<KeyboardEventHandler>(
     (event) => {
       if (disabled) return;
 
@@ -239,7 +250,7 @@ export function useResizable({
     [disabled, axis, onResizeStart, shiftStep, step, reverse, position, min, max, onResizeEnd, initial],
   );
 
-  const handleDoubleClick = useCallback<React.MouseEventHandler>(() => {
+  const handleDoubleClick = useCallback<MouseEventHandler>(() => {
     if (disabled) return;
     setPosition(initial);
     positionRef.current = initial;
