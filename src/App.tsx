@@ -65,14 +65,14 @@ export function App() {
             <input
               className="w-full px-2 py-1 rounded text-sm bg-stone-800"
               type="text"
-              defaultValue={import.meta.env.VITE_SANDBOX_URL}
+              defaultValue={import.meta.env.VITE_PREVIEW_URL}
               disabled
             />
           </div>
           <iframe
             ref={previewIframeRef}
             className={clsx('w-full h-full border-0', isPreviewDragging && 'pointer-events-none')}
-            src={import.meta.env.VITE_SANDBOX_URL}
+            src={import.meta.env.VITE_PREVIEW_URL}
             allow="fullscreen; clipboard-read; clipboard-write"
           />
         </div>
