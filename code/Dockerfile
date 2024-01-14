@@ -1,5 +1,9 @@
 FROM codercom/code-server:latest
 
+COPY ./code/config/config.yaml .config/code-server/config.yaml
+COPY ./code/config/share/user/settings.json .local/share/code-server/User/settings.json
+COPY ./code/config/share/coder.json .local/share/code-server/coder.json
+
 RUN code-server --install-extension vscode-icons-team.vscode-icons
 RUN code-server --install-extension esbenp.prettier-vscode
 RUN code-server --install-extension dbaeumer.vscode-eslint

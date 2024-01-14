@@ -9,5 +9,7 @@
   "editor.tabSize": 2,
   "editor.formatOnSave": true,
 
-  "eslint.format.enable": true
+  "eslint.format.enable": true,
+
+  "vsicons.dontShowNewVersionMessage": true
 }

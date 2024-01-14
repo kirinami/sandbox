@@ -52,7 +52,7 @@ export function App() {
         <div className="flex-grow">
           <iframe
             className={clsx('w-full h-full border-0', isPreviewDragging && 'pointer-events-none')}
-            src={`${import.meta.env.VITE_CODE_URL}?folder=/home/coder/workspace&payload=[["openFile","vscode-remote:///home/coder/workspace/src/App.tsx"]]`}
+            src={`${import.meta.env.VITE_CODE_URL}/?folder=/home/coder/workspace`}
             allow="fullscreen; clipboard-read; clipboard-write"
           />
         </div>

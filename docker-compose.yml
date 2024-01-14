@@ -11,13 +11,6 @@ services:
       x-bake:
         output: type=docker,dest=./${COMPOSE_PROJECT_NAME}-code.tar.gz
     image: ${COMPOSE_PROJECT_NAME}-code:latest
-    user: 1000:1000
-    environment:
-      - DOCKER_USER=ubuntu
-    volumes:
-      - ./code/config:/home/coder/.config/code-server
-      - ./code/share/user/settings.json:/home/coder/.local/share/code-server/User/settings.json
-      - ./code/share/coder.json:/home/coder/.local/share/code-server/coder.json
     networks:
       - traefik
     restart: unless-stopped
