@@ -8,6 +8,9 @@ services:
   code:
     build:
       context: code
+      x-bake:
+        output: type=docker,dest=./${COMPOSE_PROJECT_NAME}-code.tar.gz
+    image: ${COMPOSE_PROJECT_NAME}-code:latest
     volumes:
       - ./code/config:/home/coder/.config/code-server
       - ./code/share/user/settings.json:/home/coder/.local/share/code-server/User/settings.json
@@ -18,22 +21,25 @@ services:
     restart: unless-stopped
     labels:
       - traefik.enable=true
-      - traefik.http.routers.code-sandbox-app.rule=Host(`code-sandbox.kirinami.com`)
-      - traefik.http.routers.code-sandbox-app.entrypoints=web
-      - traefik.http.services.code-sandbox-app.loadbalancer.server.port=8080
-      - traefik.http.routers.preview-sandbox-app.rule=Host(`preview-sandbox.kirinami.com`)
-      - traefik.http.routers.preview-sandbox-app.entrypoints=web
-      - traefik.http.services.preview-sandbox-app.loadbalancer.server.port=5173
+      - traefik.http.routers.${COMPOSE_PROJECT_NAME}-code.rule=Host(`code-${DOMAIN:-${COMPOSE_PROJECT_NAME}.localhost}`)
+      - traefik.http.routers.${COMPOSE_PROJECT_NAME}-code.entrypoints=web
+      - traefik.http.services.${COMPOSE_PROJECT_NAME}-code.loadbalancer.server.port=8080
+      - traefik.http.routers.${COMPOSE_PROJECT_NAME}-preview.rule=Host(`preview-${DOMAIN:-${COMPOSE_PROJECT_NAME}.localhost}`)
+      - traefik.http.routers.${COMPOSE_PROJECT_NAME}-preview.entrypoints=web
+      - traefik.http.services.${COMPOSE_PROJECT_NAME}-preview.loadbalancer.server.port=5173
 
   app:
     depends_on:
       - code
-    build: .
+    build:
+      x-bake:
+        output: type=docker,dest=./${COMPOSE_PROJECT_NAME}-app.tar.gz
+    image: ${COMPOSE_PROJECT_NAME}-app:latest
     networks:
       - traefik
     restart: unless-stopped
     labels:
       - traefik.enable=true
-      - traefik.http.routers.sandbox-app.rule=Host(`sandbox.kirinami.com`)
-      - traefik.http.routers.sandbox-app.entrypoints=web
-      - traefik.http.services.sandbox-app.loadbalancer.server.port=4173
+      - traefik.http.routers.${COMPOSE_PROJECT_NAME}-app.rule=Host(`${DOMAIN:-${COMPOSE_PROJECT_NAME}.localhost}`)
+      - traefik.http.routers.${COMPOSE_PROJECT_NAME}-app.entrypoints=web
+      - traefik.http.services.${COMPOSE_PROJECT_NAME}-app.loadbalancer.server.port=4173
