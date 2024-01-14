@@ -2,6 +2,7 @@ bind-addr: 127.0.0.1:8080
 auth: none
 password: 93cc0076217b50552fe6750f
 cert: false
+disable-proxy: true
 disable-telemetry: true
 disable-update-check: true
 disable-workspace-trust: true

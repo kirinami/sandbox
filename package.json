@@ -1,10 +1,10 @@
 {
   "name": "sandbox",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "private": true,
   "type": "module",
   "scripts": {
-    "lint": "eslint --fix --ext ts,tsx --report-unused-disable-directives --max-warnings 0 src",
+    "lint": "tsc && eslint --fix src",
     "dev": "vite",
     "build": "yarn lint && vite build",
     "start": "vite preview"

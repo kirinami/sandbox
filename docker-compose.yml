@@ -15,7 +15,6 @@ services:
       - ./code/config:/home/coder/.config/code-server
       - ./code/share/user/settings.json:/home/coder/.local/share/code-server/User/settings.json
       - ./code/share/coder.json:/home/coder/.local/share/code-server/coder.json
-      - ./preview:/home/coder/workspaces/preview
     networks:
       - traefik
     restart: unless-stopped
@@ -35,6 +34,8 @@ services:
       x-bake:
         output: type=docker,dest=./${COMPOSE_PROJECT_NAME}-app.tar.gz
     image: ${COMPOSE_PROJECT_NAME}-app:latest
+    volumes:
+      - ./public:/app/public
     networks:
       - traefik
     restart: unless-stopped
