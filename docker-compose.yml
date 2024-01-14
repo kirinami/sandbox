@@ -1,0 +1,39 @@
+version: '3.9'
+
+networks:
+  traefik:
+    name: traefik
+
+services:
+  code:
+    build:
+      context: code
+    volumes:
+      - ./code/config:/home/coder/.config/code-server
+      - ./code/share/user/settings.json:/home/coder/.local/share/code-server/User/settings.json
+      - ./code/share/coder.json:/home/coder/.local/share/code-server/coder.json
+      - ./code/workspaces:/home/coder/workspaces
+    networks:
+      - traefik
+    restart: unless-stopped
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.code-sandbox-app.rule=Host(`code-sandbox.kirinami.com`)
+      - traefik.http.routers.code-sandbox-app.entrypoints=web
+      - traefik.http.services.code-sandbox-app.loadbalancer.server.port=8080
+      - traefik.http.routers.preview-sandbox-app.rule=Host(`preview-sandbox.kirinami.com`)
+      - traefik.http.routers.preview-sandbox-app.entrypoints=web
+      - traefik.http.services.preview-sandbox-app.loadbalancer.server.port=5173
+
+  app:
+    depends_on:
+      - code
+    build: .
+    networks:
+      - traefik
+    restart: unless-stopped
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.sandbox-app.rule=Host(`sandbox.kirinami.com`)
+      - traefik.http.routers.sandbox-app.entrypoints=web
+      - traefik.http.services.sandbox-app.loadbalancer.server.port=4173

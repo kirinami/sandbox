@@ -1,0 +1,13 @@
+{
+  "window.menuBarVisibility": "classic",
+  "window.autoDetectColorScheme": true,
+
+  "workbench.colorTheme": "Default Dark Modern",
+  "workbench.iconTheme": "vscode-icons",
+  "workbench.startupEditor": "none",
+
+  "editor.tabSize": 2,
+  "editor.formatOnSave": true,
+
+  "eslint.format.enable": true
+}

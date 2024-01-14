@@ -1,0 +1,12 @@
+version: '3.9'
+
+services:
+  code:
+    ports:
+      - 6173:5173
+      - 8080:8080
+
+  app:
+    ports:
+      - 4173:4173
+    restart: unless-stopped
