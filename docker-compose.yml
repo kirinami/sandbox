@@ -22,9 +22,11 @@ services:
       - traefik.enable=true
       - traefik.http.routers.${COMPOSE_PROJECT_NAME}-code.rule=Host(`code-${DOMAIN:-${COMPOSE_PROJECT_NAME}.localhost}`)
       - traefik.http.routers.${COMPOSE_PROJECT_NAME}-code.entrypoints=web
+      - traefik.http.routers.${COMPOSE_PROJECT_NAME}-code.service=${COMPOSE_PROJECT_NAME}-code
       - traefik.http.services.${COMPOSE_PROJECT_NAME}-code.loadbalancer.server.port=8080
       - traefik.http.routers.${COMPOSE_PROJECT_NAME}-preview.rule=Host(`preview-${DOMAIN:-${COMPOSE_PROJECT_NAME}.localhost}`)
       - traefik.http.routers.${COMPOSE_PROJECT_NAME}-preview.entrypoints=web
+      - traefik.http.routers.${COMPOSE_PROJECT_NAME}-preview.service=${COMPOSE_PROJECT_NAME}-preview
       - traefik.http.services.${COMPOSE_PROJECT_NAME}-preview.loadbalancer.server.port=5173
 
   app:
